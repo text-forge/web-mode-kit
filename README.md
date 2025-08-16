@@ -1,5 +1,6 @@
 # Text Forge web mode kit
 Official web mode kit for Text Forge code editor
+
 ---
 
 Web Mode Kit is a lightweight and functional mode kit for Text Forge code editor. It's a part of official Text Forge mode kits.
