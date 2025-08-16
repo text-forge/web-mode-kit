@@ -7,7 +7,7 @@ Web Mode Kit is a lightweight and functional mode kit for Text Forge code editor
 
 ## Kit Contents
 - HMTL Mode
-  Advanced mode for working with htm and html files, with smart auto formatting and highlighter. Also contains a simple code completion.
+    Advanced mode for working with htm and html files, with smart auto formatting and highlighter. Also contains a simple code completion.
 - CSS Mode - ⚠️ In progress
 - JavaScript Mode - ⚠️ In progress
 - Markdown - ⚠️ In progress
