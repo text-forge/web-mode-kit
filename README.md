@@ -6,11 +6,12 @@ Official web mode kit for Text Forge code editor
 Web Mode Kit is a lightweight and functional mode kit for Text Forge code editor. It's a part of official Text Forge mode kits.
 
 ## Kit Contents
-- HMTL Mode - Advanced Formatting and Code Completion
-- CSS Mode - In progress
-- JavaScript Mode - In progress
-- Markdown - In progress
-- JSON - In progress
+- HMTL Mode
+  Advanced mode for working with htm and html files, with smart auto formatting and highlighter. Also contains a simple code completion.
+- CSS Mode - ⚠️ In progress
+- JavaScript Mode - ⚠️ In progress
+- Markdown - ⚠️ In progress
+- JSON - ⚠️ In progress
 
 ## Setup
 Supports Text Forge 0.1-stable and newer versions.
