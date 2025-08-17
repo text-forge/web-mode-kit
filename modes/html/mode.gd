@@ -42,8 +42,6 @@ func _initialize_mode() -> Error:
 	
 	_enable_auto_format_feature()
 	
-	# Global.get_editor().add_auto_brace_completion_pair("<", ">")
-	
 	return OK
 
 
@@ -77,8 +75,7 @@ func _update_code_completion_options(text: String) -> void:
 			if keyword in self_closing_tags:
 				Global.get_editor().add_code_completion_option(CodeEdit.KIND_CLASS, "<" + keyword + "/>", keyword + "/>", color)
 			else:
-				Global.get_editor().add_code_completion_option(CodeEdit.KIND_CLASS, "<" + keyword + ">", keyword + ">\n</" + keyword + ">", color)
-	Global.get_editor().update_code_completion_options(true)
+				Global.get_editor().add_code_completion_option(CodeEdit.KIND_CLASS, "<" + keyword + ">", keyword + ">\n\t\n</" + keyword + ">", color)
 
 
 # TODO
@@ -96,7 +93,7 @@ func _initialize_highlighter() -> void:
 	syntax_highlighter.number_color = Color(1, 0.75, 0.4, 1)
 	syntax_highlighter.symbol_color = Color(0.6, 0.85, 1, 1)
 	syntax_highlighter.function_color = Color(1, 1, 1, 1)
-	syntax_highlighter.function_color = Color(1, 0.6, 0.85, 1)
+	syntax_highlighter.member_variable_color = Color(1, 0.6, 0.85, 1)
 	for color in keyword_colors:
 		for keyword in keyword_colors[color]:
 			syntax_highlighter.add_keyword_color(keyword, color)
