@@ -1,16 +1,16 @@
 extends TextForgeMode
 
 var keyword_colors: Dictionary[Color, Array] = {
-	Color(1, 0.65, 0.65, 1): ["html", "head", "body", "title", "meta", "link", "base", "style", "script"],
-	Color(0.8, 0.7, 1, 1): ["p", "br", "hr", "pre", "blockquote", "code", "kbd"],
-	Color(0.6, 0.8, 1, 1): ["div", "span", "section", "article", "nav", "header", "footer", "main", "aside"],
-	Color(0.7, 1, 0.7, 1): ["ul", "ol", "li", "dl", "dt", "dd"],
-	Color(1, 0.8, 0.5, 1): ["h1", "h2", "h3", "h4", "h5", "h6"],
-	Color(1, 0.75, 1, 1): ["form", "input", "textarea", "button", "label", "select", "option", "fieldset", "legend"],
-	Color(0.9, 1, 0.6, 1): ["table", "thead", "tbody", "tfoot", "tr", "td", "th", "col", "colgroup", "caption"],
-	Color(0.85, 0.9, 1, 1): ["img", "audio", "video", "source", "track", "iframe", "object", "embed"],
-	Color(0.7, 0.85, 0.95, 1): ["a", "details", "summary", "dialog", "menu", "menuitem"],
-	Color(0.85, 0.95, 0.8, 1): ["href", "src", "alt", "id", "class", "type", "rel", "name", "value", "placeholder", "action", "method", "disabled", "checked", "selected"],
+	Color.hex(0xffa6a6ff): ["html", "head", "body", "title", "meta", "link", "base", "style", "script"],
+	Color.hex(0xccb3ffff): ["p", "br", "hr", "pre", "blockquote", "code", "kbd"],
+	Color.hex(0x99ccffff): ["div", "span", "section", "article", "nav", "header", "footer", "main", "aside"],
+	Color.hex(0xb3ffb3ff): ["ul", "ol", "li", "dl", "dt", "dd"],
+	Color.hex(0xffcc80ff): ["h1", "h2", "h3", "h4", "h5", "h6"],
+	Color.hex(0xffbfffff): ["form", "input", "textarea", "button", "label", "select", "option", "fieldset", "legend"],
+	Color.hex(0xe6ff99ff): ["table", "thead", "tbody", "tfoot", "tr", "td", "th", "col", "colgroup", "caption"],
+	Color.hex(0xd9e6ffff): ["img", "audio", "video", "source", "track", "iframe", "object", "embed"],
+	Color.hex(0xb3d9f2ff): ["a", "details", "summary", "dialog", "menu", "menuitem"],
+	Color.hex(0xd9f2ccff): ["href", "src", "alt", "id", "class", "type", "rel", "name", "value", "placeholder", "action", "method", "disabled", "checked", "selected"],
 }
 var self_closing_tags := [
 	"area", "base", "br", "col", "embed", "hr", "img", "input",
@@ -90,16 +90,16 @@ func _lint_file(text: String) -> Array[Dictionary]:
 
 func _initialize_highlighter() -> void:
 	syntax_highlighter = CodeHighlighter.new()
-	syntax_highlighter.number_color = Color(1, 0.75, 0.4, 1)
-	syntax_highlighter.symbol_color = Color(0.6, 0.85, 1, 1)
-	syntax_highlighter.function_color = Color(1, 1, 1, 1)
-	syntax_highlighter.member_variable_color = Color(1, 0.6, 0.85, 1)
+	syntax_highlighter.number_color = Color.hex(0xffbf66ff)
+	syntax_highlighter.symbol_color = Color.hex(0x99d9ffff)
+	syntax_highlighter.function_color = Color.hex(0xffffffff)
+	syntax_highlighter.member_variable_color = Color.hex(0xff99d9ff)
 	for color in keyword_colors:
 		for keyword in keyword_colors[color]:
 			syntax_highlighter.add_keyword_color(keyword, color)
-	syntax_highlighter.add_color_region('"', '"', Color(0.9, 0.95, 1, 1), false)
-	syntax_highlighter.add_color_region('<!--', '-->', Color(0.7, 0.9, 1, 1), false)
-	syntax_highlighter.add_color_region('<!', '>', Color(0.7, 0.9, 1, 1), false)
+	syntax_highlighter.add_color_region('"', '"', Color.hex(0xe6f2ffff), false)
+	syntax_highlighter.add_color_region('<!--', '-->', Color.hex(0xb3e6ffff), false)
+	syntax_highlighter.add_color_region('<!', '>', Color.hex(0xb3e6ffff), false)
 
 
 func _split_tags(line: String) -> PackedStringArray:
