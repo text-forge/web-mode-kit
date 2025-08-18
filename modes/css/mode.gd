@@ -1,8 +1,17 @@
 extends TextForgeMode
 
 var keyword_colors: Dictionary[Color, Array] = {
-	Color.hex(0xe68c8cff): ["inherit", "initial", "unset", "revert"],
-	Color.hex(0xcca6ffff): ["auto", "block", "inline", "flex", "grid", "none"]
+	Color.hex(0xe68c8cff): [ "inherit", "initial", "unset", "revert" ],
+	Color.hex(0xcca6ffff): [ "auto", "block", "inline", "flex", "grid", "none" ],
+	Color.hex(0x99ccffff): [ "transparent", "currentColor" ],
+	Color.hex(0xffcc99ff): [ "px", "em", "rem", "%", "vh", "vw", "vmin", "vmax", "ch", "ex", "cm", "mm", "in", "pt", "pc" ],
+	Color.hex(0xccffccff): [ "left", "right", "top", "bottom", "center", "start", "end" ],
+	Color.hex(0xff99ccff): [ "repeat", "no-repeat", "repeat-x", "repeat-y", "space", "round", "cover", "contain" ],
+	Color.hex(0xb3b3ffff): [ "bold", "normal", "italic", "oblique", "small-caps", "uppercase", "lowercase", "capitalize" ],
+	Color.hex(0xffccffff): [ "ease", "linear", "ease-in", "ease-out", "ease-in-out", "infinite", "forwards", "backwards", "alternate" ],
+	Color.hex(0xd9b3ffff): [ "rotate", "scale", "skew", "translate", "rotateX", "rotateY", "translateX", "translateY" ],
+	Color.hex(0xb3ffd9ff): [ "filter", "hue-rotate", "blur", "brightness", "contrast", "drop-shadow", "grayscale", "invert", "opacity", "saturate", "sepia" ],
+	Color.hex(0xffe6ccff): [ "margin", "padding", "width", "height", "border", "border-radius", "box-shadow", "font-family", "background", "background-color", "transition", "animation", "animation-name", "animation-duration", "animation-iteration-count", "animation-direction", "animation-timing-function", "keyframes" ]
 }
 var code_regions: Array[Array] = [
 	[Color.hex(0xf2f2ccff), '"', '"', false],
