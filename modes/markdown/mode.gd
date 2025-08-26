@@ -1,7 +1,7 @@
 extends TextForgeMode
 
 var code_regions: Array[Array] = [
-    [Color.hex(0xb6f1bbff), "`", "`", true],
+    [Color.hex(0xb6f1bbff), "`", "`", false],
     [Color.hex(0xb6f1bbff), "```", "```", false],
 ]
 
