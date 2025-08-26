@@ -1,5 +1,10 @@
 extends TextForgeMode
 
+const SELF_CLOSING_TAGS := [
+	"area", "base", "br", "col", "embed", "hr", "img", "input",
+	"link", "meta", "param", "source", "track", "wbr"
+]
+
 var keyword_colors: Dictionary[Color, Array] = {
 	Color.hex(0xffa6a6ff): ["html", "head", "body", "title", "meta", "link", "base", "style", "script"],
 	Color.hex(0xccb3ffff): ["p", "br", "hr", "pre", "blockquote", "code", "kbd"],
@@ -12,10 +17,6 @@ var keyword_colors: Dictionary[Color, Array] = {
 	Color.hex(0xb3d9f2ff): ["a", "details", "summary", "dialog", "menu", "menuitem"],
 	Color.hex(0xd9f2ccff): ["href", "src", "alt", "id", "class", "type", "rel", "name", "value", "placeholder", "action", "method", "disabled", "checked", "selected"],
 }
-var self_closing_tags := [
-	"area", "base", "br", "col", "embed", "hr", "img", "input",
-	"link", "meta", "param", "source", "track", "wbr"
-]
 
 func _initialize_mode() -> Error:
 	_initialize_highlighter()
@@ -72,15 +73,42 @@ func _auto_format(text: String) -> String:
 func _update_code_completion_options(text: String) -> void:
 	for color in keyword_colors:
 		for keyword in keyword_colors[color]:
-			if keyword in self_closing_tags:
+			if keyword in SELF_CLOSING_TAGS:
 				Global.get_editor().add_code_completion_option(CodeEdit.KIND_CLASS, "<" + keyword + "/>", keyword + "/>", color)
 			else:
 				Global.get_editor().add_code_completion_option(CodeEdit.KIND_CLASS, "<" + keyword + ">", keyword + ">\n\t\n</" + keyword + ">", color)
 
 
-# TODO
 func _generate_outline(text: String) -> Array:
-	return Array()
+	var parser = XMLParser.new()
+	parser.open_buffer(text.to_utf8_buffer())
+
+	var outline := []
+	var stack := []
+
+	while parser.read() != ERR_FILE_EOF:
+		match parser.get_node_type():
+			XMLParser.NODE_ELEMENT:
+				var node_name = parser.get_node_name()
+				var line = parser.get_current_line()
+				var node := [node_name, line]
+
+				if stack.size() > 0:
+					stack[-1].append(node)
+				else:
+					outline.append(node)
+
+				if not parser.is_empty() and not SELF_CLOSING_TAGS.has(node_name):
+					stack.append(node)
+
+			XMLParser.NODE_ELEMENT_END:
+				if stack.size() > 0:
+					stack.pop_back()
+
+	return outline
+
+
+
 
 
 # TODO
@@ -160,7 +188,7 @@ func _count_tag_diff(line: String) -> int:
 	for match in matches:
 		var closing := match.get_string(1) == "/"
 		var tag := match.get_string(2).to_lower()
-		var self_closing := tag in self_closing_tags or match.get_string(0).ends_with("/>")
+		var self_closing := tag in SELF_CLOSING_TAGS or match.get_string(0).ends_with("/>")
 		if self_closing:
 			continue
 		elif closing:
