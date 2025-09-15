@@ -49,8 +49,8 @@ func _generate_spans(line: int) -> Array[Dictionary]:
 			var start := match.get_start(0)
 			var end := match.get_end(0)
 			var overlaps := false
-			for range in spans:
-				if start < range["end"] and end > range["start"]:
+			for r in spans:
+				if start < r["end"] and end > r["start"]:
 					overlaps = true
 					break
 			
