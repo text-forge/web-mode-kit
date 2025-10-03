@@ -12,10 +12,10 @@ func _get_line_syntax_highlighting(line: int) -> Dictionary:
 		var color: Color = span["color"]
 
 		if start > last_end:
-			highlight_map[last_end] = { "color": Color.WHITE }
+			highlight_map[last_end] = { "color": U.get_syntax_color(U.SyntaxColors.DEFAULT) }
 
 		highlight_map[start] = { "color": color }
-		highlight_map[end] = {"color": Color.WHITE}
+		highlight_map[end] = {"color": U.get_syntax_color(U.SyntaxColors.DEFAULT)}
 		last_end = end
 	
 	return highlight_map
@@ -26,19 +26,19 @@ func _generate_spans(line: int) -> Array[Dictionary]:
 	var spans: Array[Dictionary] = []
 
 	var patterns := [
-		{ "regex": r"^>\s?.*", "color": Color.GRAY },
-		{ "regex": r"^(#{1,6})\s+.*", "color": Color.CORAL },
-		{ "regex": r"^(?:-{3,}|\*{3,})\s*$", "color": Color.MEDIUM_VIOLET_RED },
-		{ "regex": r"\*\*\*(.+?)\*\*\*", "color": Color.RED },
-		{ "regex": r"\*\*(.+?)\*\*", "color": Color.ORANGE_RED },
-		{ "regex": r"\*(.+?)\*", "color": Color.INDIAN_RED },
-		{ "regex": r"`(.+?)`", "color": Color.LIGHT_SLATE_GRAY },
-		{ "regex": r"~~(.+?)~~", "color": Color.WEB_GRAY },
-		{ "regex": r"!\[([^\]]*)\]\(([^)]+)\)", "color": Color.LIGHT_GREEN },
-		{ "regex": r"\[([^\]]*)\]\(([^)]+)\)", "color": Color.LIGHT_SEA_GREEN },
-		{ "regex": r"-\s\[(x|X)\]\s", "color": Color.SPRING_GREEN },
-		{ "regex": r"-\s\[\s\]\s(.*)", "color": Color.TAN },
-		{ "regex": r"https?://[^\s\)]+", "color": Color.LIGHT_SEA_GREEN }
+		{ "regex": r"^>\s?.*", "color": U.get_syntax_color(U.SyntaxColors.COMMENT) },
+		{ "regex": r"^(#{1,6})\s+.*", "color": U.get_syntax_color(U.SyntaxColors.KEYWORD_3) },
+		{ "regex": r"^(?:-{3,}|\*{3,})\s*$", "color": U.get_syntax_color(U.SyntaxColors.KEYWORD_2) },
+		{ "regex": r"\*\*\*(.+?)\*\*\*", "color": U.get_syntax_color(U.SyntaxColors.KEYWORD_1) },
+		{ "regex": r"\*\*(.+?)\*\*", "color": U.get_syntax_color(U.SyntaxColors.KEYWORD_1) },
+		{ "regex": r"\*(.+?)\*", "color": U.get_syntax_color(U.SyntaxColors.KEYWORD_1) },
+		{ "regex": r"`(.+?)`", "color": U.get_syntax_color(U.SyntaxColors.STRING) },
+		{ "regex": r"~~(.+?)~~", "color": U.get_syntax_color(U.SyntaxColors.COMMENT) },
+		{ "regex": r"!\[([^\]]*)\]\(([^)]+)\)", "color": U.get_syntax_color(U.SyntaxColors.CUSTOM_5) },
+		{ "regex": r"\[([^\]]*)\]\(([^)]+)\)", "color": U.get_syntax_color(U.SyntaxColors.FUNCTION_DEF) },
+		{ "regex": r"-\s\[(x|X)\]\s", "color": U.get_syntax_color(U.SyntaxColors.TYPE_1) },
+		{ "regex": r"-\s\[\s\]\s(.*)", "color": U.get_syntax_color(U.SyntaxColors.TYPE_3) },
+		{ "regex": r"https?://[^\s\)]+", "color": U.get_syntax_color(U.SyntaxColors.FUNCTION_DEF) }
 	]
 
 	for pattern in patterns:

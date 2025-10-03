@@ -1,24 +1,18 @@
 extends TextForgeMode
 
 var keyword_colors: Dictionary[Color, Array] = {
-	Color.hex(0xd88c8cff): [ "var", "let", "const" ],
-	Color.hex(0xb38cc4ff): [ "if", "else", "switch", "case", "default" ],
-	Color.hex(0xc48c6bff): [ "for", "while", "do", "break", "continue" ],
-	Color.hex(0x8cc4c4ff): [ "function", "return", "class", "extends", "constructor", "super" ],
-	Color.hex(0x99b38cff): [ "true", "false", "null", "undefined" ],
-	Color.hex(0xa38cc4ff): [ "typeof", "instanceof", "in", "new", "delete", "void" ],
-	Color.hex(0x8cb3c4ff): [ "import", "export", "from", "as" ],
-	Color.hex(0xc48ca3ff): [ "try", "catch", "finally", "throw" ],
-	Color.hex(0xa3c4c4ff): [ "this", "await", "async", "yield", "with", "debugger" ]
+	U.get_syntax_color(U.SyntaxColors.KEYWORD_1): [ "this", "import", "export", "from", "as", "typeof", "instanceof", "in", "new", "delete", "void", "var", "let", "const", "true", "false", "null", "undefined", "function", "class", "extends", "constructor", "super" ],
+	U.get_syntax_color(U.SyntaxColors.KEYWORD_2): [ "if", "else", "switch", "case", "default", "for", "while", "do", "break", "continue", "return" ],
+	U.get_syntax_color(U.SyntaxColors.KEYWORD_3): [ "try", "catch", "finally", "throw", "await", "async", "yield", "with", "debugger" ],
 }
 
 var code_regions: Array[Array] = [
-	[Color.hex(0xf2e6ccff), '"', '"', false],
-	[Color.hex(0xf2e6ccff), "'", "'", false],
-	[Color.hex(0xf2e6ccff), "`", "`", false],
-	[Color.hex(0x999999ff), "//", "", true],
-	[Color.hex(0x999999ff), "/*", "*/", false],
-	[Color.hex(0xbfbfbfff), "/**", "*/", false]
+	[U.get_syntax_color(U.SyntaxColors.STRING), '"', '"', false],
+	[U.get_syntax_color(U.SyntaxColors.STRING), "'", "'", false],
+	[U.get_syntax_color(U.SyntaxColors.STRING), "`", "`", false],
+	[U.get_syntax_color(U.SyntaxColors.COMMENT), "//", "", true],
+	[U.get_syntax_color(U.SyntaxColors.COMMENT), "/*", "*/", false],
+	[U.get_syntax_color(U.SyntaxColors.DOC_COMMENT), "/**", "*/", false]
 ]
 
 func _initialize_mode() -> Error:
@@ -75,10 +69,10 @@ func _lint_file(text: String) -> Array[Dictionary]:
 
 func _initialize_highlighter() -> void:
 	syntax_highlighter = CodeHighlighter.new()
-	syntax_highlighter.number_color = Color.hex(0xcc6666ff)
-	syntax_highlighter.symbol_color = Color.hex(0xcccc99ff)
-	syntax_highlighter.function_color = Color.hex(0x99ccccff)
-	syntax_highlighter.member_variable_color = Color.hex(0xb3d9b3ff)
+	syntax_highlighter.number_color = U.get_syntax_color(U.SyntaxColors.NUMBER)
+	syntax_highlighter.symbol_color = U.get_syntax_color(U.SyntaxColors.SYMBOL)
+	syntax_highlighter.function_color = U.get_syntax_color(U.SyntaxColors.FUNCTION)
+	syntax_highlighter.member_variable_color = U.get_syntax_color(U.SyntaxColors.MEMBER)
 	for color in keyword_colors:
 		for keyword in keyword_colors[color]:
 			syntax_highlighter.add_keyword_color(keyword, color)

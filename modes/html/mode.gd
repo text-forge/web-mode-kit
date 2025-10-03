@@ -6,16 +6,16 @@ const SELF_CLOSING_TAGS := [
 ]
 
 var keyword_colors: Dictionary[Color, Array] = {
-	Color.hex(0xffa6a6ff): ["html", "head", "body", "title", "meta", "link", "base", "style", "script"],
-	Color.hex(0xccb3ffff): ["p", "br", "hr", "pre", "blockquote", "code", "kbd"],
-	Color.hex(0x99ccffff): ["div", "span", "section", "article", "nav", "header", "footer", "main", "aside"],
-	Color.hex(0xb3ffb3ff): ["ul", "ol", "li", "dl", "dt", "dd"],
-	Color.hex(0xffcc80ff): ["h1", "h2", "h3", "h4", "h5", "h6"],
-	Color.hex(0xffbfffff): ["form", "input", "textarea", "button", "label", "select", "option", "fieldset", "legend"],
-	Color.hex(0xe6ff99ff): ["table", "thead", "tbody", "tfoot", "tr", "td", "th", "col", "colgroup", "caption"],
-	Color.hex(0xd9e6ffff): ["img", "audio", "video", "source", "track", "iframe", "object", "embed"],
-	Color.hex(0xb3d9f2ff): ["a", "details", "summary", "dialog", "menu", "menuitem"],
-	Color.hex(0xd9f2ccff): ["href", "src", "alt", "id", "class", "type", "rel", "name", "value", "placeholder", "action", "method", "disabled", "checked", "selected"],
+	U.get_syntax_color(U.SyntaxColors.KEYWORD_1): ["html", "head", "body", "title", "meta", "link", "base", "style", "script"],
+	U.get_syntax_color(U.SyntaxColors.KEYWORD_3): ["h1", "h2", "h3", "h4", "h5", "h6"],
+	U.get_syntax_color(U.SyntaxColors.BUILTIN): ["p", "br", "hr", "pre", "blockquote", "code", "kbd"],
+	U.get_syntax_color(U.SyntaxColors.CUSTOM_2): ["form", "input", "textarea", "button", "label", "select", "option", "fieldset", "legend"],
+	U.get_syntax_color(U.SyntaxColors.CUSTOM_5): ["div", "span", "section", "article", "nav", "header", "footer", "main", "aside"],
+	U.get_syntax_color(U.SyntaxColors.TYPE_3): ["ul", "ol", "li", "dl", "dt", "dd"],
+	U.get_syntax_color(U.SyntaxColors.CUSTOM_4): ["table", "thead", "tbody", "tfoot", "tr", "td", "th", "col", "colgroup", "caption"],
+	U.get_syntax_color(U.SyntaxColors.TYPE_2): ["img", "audio", "video", "source", "track", "iframe", "object", "embed"],
+	U.get_syntax_color(U.SyntaxColors.FUNCTION): ["a", "details", "summary", "dialog", "menu", "menuitem"],
+	U.get_syntax_color(U.SyntaxColors.MEMBER): ["href", "src", "alt", "id", "class", "type", "rel", "name", "value", "placeholder", "action", "method", "disabled", "checked", "selected"],
 }
 
 func _initialize_mode() -> Error:
@@ -118,16 +118,17 @@ func _lint_file(text: String) -> Array[Dictionary]:
 
 func _initialize_highlighter() -> void:
 	syntax_highlighter = CodeHighlighter.new()
-	syntax_highlighter.number_color = Color.hex(0xffbf66ff)
-	syntax_highlighter.symbol_color = Color.hex(0x99d9ffff)
-	syntax_highlighter.function_color = Color.hex(0xffffffff)
-	syntax_highlighter.member_variable_color = Color.hex(0xff99d9ff)
+	syntax_highlighter.number_color = U.get_syntax_color(U.SyntaxColors.NUMBER)
+	syntax_highlighter.symbol_color = U.get_syntax_color(U.SyntaxColors.SYMBOL)
+	syntax_highlighter.function_color = Color.WHITE
+	syntax_highlighter.member_variable_color = U.get_syntax_color(U.SyntaxColors.MEMBER)
 	for color in keyword_colors:
 		for keyword in keyword_colors[color]:
 			syntax_highlighter.add_keyword_color(keyword, color)
-	syntax_highlighter.add_color_region('"', '"', Color.hex(0xe6f2ffff), false)
-	syntax_highlighter.add_color_region('<!--', '-->', Color.hex(0xb3e6ffff), false)
-	syntax_highlighter.add_color_region('<!', '>', Color.hex(0xb3e6ffff), false)
+	syntax_highlighter.add_color_region('"', '"', U.get_syntax_color(U.SyntaxColors.STRING), false)
+	syntax_highlighter.add_color_region("'", "'", U.get_syntax_color(U.SyntaxColors.STRING), false)
+	syntax_highlighter.add_color_region('<!--', '-->', U.get_syntax_color(U.SyntaxColors.COMMENT), false)
+	syntax_highlighter.add_color_region('<!', '>', U.get_syntax_color(U.SyntaxColors.DOC_COMMENT), false)
 
 
 func _split_tags(line: String) -> PackedStringArray:

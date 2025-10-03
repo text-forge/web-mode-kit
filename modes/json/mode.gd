@@ -1,12 +1,12 @@
 extends TextForgeMode
 
 var keyword_colors: Dictionary[Color, Array] = {
-	Color.hex(0xbe8cd8ff): [ "true", "false", "null"],
+	U.get_syntax_color(U.SyntaxColors.KEYWORD_1): [ "true", "false", "null"],
 }
 
 var code_regions: Array[Array] = [
-	[Color.hex(0xf2e6ccff), '"', '"', false],
-	[Color.hex(0xf2e6ccff), "'", "'", false],
+	[U.get_syntax_color(U.SyntaxColors.STRING), '"', '"', false],
+	[U.get_syntax_color(U.SyntaxColors.STRING), "'", "'", false],
 ]
 
 func _initialize_mode() -> Error:
@@ -43,10 +43,10 @@ func _auto_format(text: String) -> String:
 
 func _initialize_highlighter() -> void:
 	syntax_highlighter = CodeHighlighter.new()
-	syntax_highlighter.number_color = Color.SKY_BLUE
-	syntax_highlighter.symbol_color = Color.PALE_GOLDENROD
-	syntax_highlighter.function_color = Color.WHITE
-	syntax_highlighter.member_variable_color = Color.WHITE
+	syntax_highlighter.number_color = U.get_syntax_color(U.SyntaxColors.NUMBER)
+	syntax_highlighter.symbol_color = U.get_syntax_color(U.SyntaxColors.SYMBOL)
+	syntax_highlighter.function_color = U.get_syntax_color(U.SyntaxColors.DEFAULT)
+	syntax_highlighter.member_variable_color = U.get_syntax_color(U.SyntaxColors.DEFAULT)
 	for color in keyword_colors:
 		for keyword in keyword_colors[color]:
 			syntax_highlighter.add_keyword_color(keyword, color)

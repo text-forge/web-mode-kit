@@ -1,22 +1,21 @@
 extends TextForgeMode
 
 var keyword_colors: Dictionary[Color, Array] = {
-	Color.hex(0xe68c8cff): [ "inherit", "initial", "unset", "revert" ],
-	Color.hex(0xcca6ffff): [ "auto", "block", "inline", "flex", "grid", "none" ],
-	Color.hex(0x99ccffff): [ "transparent", "currentColor" ],
-	Color.hex(0xffcc99ff): [ "px", "em", "rem", "%", "vh", "vw", "vmin", "vmax", "ch", "ex", "cm", "mm", "in", "pt", "pc" ],
-	Color.hex(0xccffccff): [ "left", "right", "top", "bottom", "center", "start", "end" ],
-	Color.hex(0xff99ccff): [ "repeat", "no-repeat", "repeat-x", "repeat-y", "space", "round", "cover", "contain" ],
-	Color.hex(0xb3b3ffff): [ "bold", "normal", "italic", "oblique", "small-caps", "uppercase", "lowercase", "capitalize" ],
-	Color.hex(0xffccffff): [ "ease", "linear", "ease-in", "ease-out", "ease-in-out", "infinite", "forwards", "backwards", "alternate" ],
-	Color.hex(0xd9b3ffff): [ "rotate", "scale", "skew", "translate", "rotateX", "rotateY", "translateX", "translateY" ],
-	Color.hex(0xb3ffd9ff): [ "filter", "hue-rotate", "blur", "brightness", "contrast", "drop-shadow", "grayscale", "invert", "opacity", "saturate", "sepia" ],
-	Color.hex(0xffe6ccff): [ "margin", "padding", "width", "height", "border", "border-radius", "box-shadow", "font-family", "background", "background-color", "transition", "animation", "animation-name", "animation-duration", "animation-iteration-count", "animation-direction", "animation-timing-function", "keyframes" ]
+	U.get_syntax_color(U.SyntaxColors.BUILTIN): [ "word", "letter", "line", "spacing", "size", "text", "font", "family", "border", "radius", "box", "shadow", "margin", "padding", "width", "height", "border", "background", "color", "transition", "animation", "name", "duration", "iteration", "count", "direction", "timing", "function", "keyframes" ],
+	U.get_syntax_color(U.SyntaxColors.KEYWORD_1): [ "inherit", "initial", "unset", "revert" ],
+	U.get_syntax_color(U.SyntaxColors.KEYWORD_2): [ "repeat", "no-repeat", "repeat", "x", "y", "space", "round", "cover", "contain", "auto", "block", "inline", "flex", "grid", "none" ],
+	U.get_syntax_color(U.SyntaxColors.KEYWORD_3): [ "px", "em", "rem", "%", "vh", "vw", "vmin", "vmax", "ch", "ex", "cm", "mm", "in", "pt", "pc" ],
+	U.get_syntax_color(U.SyntaxColors.CUSTOM_2): [ "bold", "normal", "italic", "oblique", "small-caps", "uppercase", "lowercase", "capitalize" ],
+	U.get_syntax_color(U.SyntaxColors.CUSTOM_3): [ "rotate", "scale", "skew", "translate", "rotateX", "rotateY", "translateX", "translateY" ],
+	U.get_syntax_color(U.SyntaxColors.CUSTOM_5): [ "transparent", "currentColor" ],
+	U.get_syntax_color(U.SyntaxColors.TYPE_1): [ "filter", "hue-rotate", "blur", "brightness", "contrast", "drop", "shadow", "grayscale", "invert", "opacity", "saturate", "sepia" ],
+	U.get_syntax_color(U.SyntaxColors.TYPE_2): [ "ease", "linear", "in", "out", "infinite", "forwards", "backwards", "alternate" ],
+	U.get_syntax_color(U.SyntaxColors.TYPE_3): [ "left", "right", "top", "bottom", "center", "start", "end" ],
 }
 var code_regions: Array[Array] = [
-	[Color.hex(0xf2f2ccff), '"', '"', false],
-	[Color.hex(0xf2f2ccff), "'", "'", false],
-	[Color.hex(0xb3fff2ff), "/*", "*/", false],
+	[U.get_syntax_color(U.SyntaxColors.STRING), '"', '"', false],
+	[U.get_syntax_color(U.SyntaxColors.STRING), "'", "'", false],
+	[U.get_syntax_color(U.SyntaxColors.COMMENT), "/*", "*/", false],
 ]
 
 func _initialize_mode() -> Error:
@@ -80,10 +79,10 @@ func _lint_file(text: String) -> Array[Dictionary]:
 
 func _initialize_highlighter() -> void:
 	syntax_highlighter = CodeHighlighter.new()
-	syntax_highlighter.number_color = Color.hex(0xe6b380ff)
-	syntax_highlighter.symbol_color = Color.hex(0x80ccffff)
-	syntax_highlighter.function_color = Color.hex(0xffcc80ff)
-	syntax_highlighter.member_variable_color = Color.hex(0xb3ffd9ff)
+	syntax_highlighter.number_color = U.get_syntax_color(U.SyntaxColors.NUMBER)
+	syntax_highlighter.symbol_color = U.get_syntax_color(U.SyntaxColors.SYMBOL)
+	syntax_highlighter.function_color = U.get_syntax_color(U.SyntaxColors.FUNCTION)
+	syntax_highlighter.member_variable_color = U.get_syntax_color(U.SyntaxColors.MEMBER)
 	for color in keyword_colors:
 		for keyword in keyword_colors[color]:
 			syntax_highlighter.add_keyword_color(keyword, color)
