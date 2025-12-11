@@ -1,7 +1,7 @@
 extends TextForgeMode
 
 func _initialize_mode() -> Error:
-	syntax_highlighter = Global.load_resource("user://modes/markdown/highlighter.gd").new()
+	syntax_highlighter = U.load_resource("user://modes/markdown/highlighter.gd").new()
 	comment_delimiters.append({
 		"start_key": "<!--",
 		"end_key": "-->",
