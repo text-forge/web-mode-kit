@@ -45,8 +45,8 @@ func _auto_indent(text: String) -> String:
 	var lines := text.split("\n", false)
 	var formatted := []
 	var indent_level := 0
-	var indent_size := Global.get_editor().indent_size
-	var indent_str := " ".repeat(indent_size) if Global.get_editor().indent_use_spaces else "\t"
+	var _indent_size := Global.get_editor().indent_size
+	var indent_str := " ".repeat(_indent_size) if Global.get_editor().indent_use_spaces else "\t"
 
 	for line in lines:
 		var stripped := line.strip_edges()
@@ -65,16 +65,6 @@ func _update_code_completion_options(text: String) -> void:
 	for color in keyword_colors:
 		for keyword in keyword_colors[color]:
 			Global.get_editor().add_code_completion_option(CodeEdit.KIND_CLASS, keyword, keyword, color)
-
-
-# TODO
-func _generate_outline(text: String) -> Array:
-	return Array()
-
-
-# TODO
-func _lint_file(text: String) -> Array[Dictionary]:
-	return Array([], TYPE_DICTIONARY, "", null)
 
 
 func _initialize_highlighter() -> void:
